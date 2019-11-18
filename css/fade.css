@@ -1,0 +1,14 @@
+/* APARIÇÃO DO FORM */
+form{
+  animation: fade 2s;
+}
+ @keyframes fade {
+  from {
+    opacity: 0;
+ }
+  to {
+    opacity: 1;
+  }
+} 
+
+
