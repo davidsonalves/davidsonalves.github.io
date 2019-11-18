@@ -6,9 +6,8 @@
 html,body {height: 100vh;}
 body{margin:0px 100px 0 100px;}
 main{ background-color: #7159c1; 
-               font-family: Roboto, Arial, sans-serif;
-               height: 100%;
-      }
+      font-family: Roboto, Arial, 
+      sans-serif;height: 100%;}
 
 section {
   display: flex;
