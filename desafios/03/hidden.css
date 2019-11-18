@@ -1,0 +1,14 @@
+
+/* Quando clicar no botão, sumir com o form */
+.form-hide {
+  animation: down 500ms forwards;
+}
+
+@keyframes down {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100vh);
+  }
+}
