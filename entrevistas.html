@@ -36,7 +36,7 @@
             <a class="nav-link" href="#">Horas Estagiadas</a>
           </li> 
           <li class="nav-item">
-            <a class="nav-link" href="#">Frequências</a>
+            <a class="nav-link" href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalExemplo3">Frequências</a>
            </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Projeto Social</a>
@@ -46,14 +46,14 @@
       </div>
     </nav>
 
-    <main role="main">
-
-      <div class="jumbotron">
+<div id="table">
+ <main role="main" >
+ <br><br><br>
          <h1 class="display-5">Estágio 2020 </h1>
-         
+  
 
-      <table class="table  table-striped">
-  <thead>
+      <table class="table  table-striped" style="height: 100%;">
+          <thead>
     <tr>
       <th scope="col">ALuno</th>
       <th scope="col">Área de atuação</th>
@@ -97,12 +97,36 @@
     </tr>
     
   </table>
+</main>
 </div>
   <hr>
-    <footer class="container">
+    <footer class="container-fluid">
       <p>&copy;Prof.Esp. Davidson Alves - 2020 </p>
     </footer>
-  
+  <div class="modal fade" id="modalExemplo3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Frequências</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+        <a href="#">Frequência de Agosto </a> <br>
+        <a href="#">Frequência de Setembro </a> <br>
+        <a href="#">Frequência de Outubro </a> <br>
+        <a href="#">Frequência de Novembro</a> <br>
+        <a href="#">Frequência de Dezembro</a> <br>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
 
 
     <!-- Principal JavaScript do Bootstrap
@@ -110,7 +134,7 @@
     <!-- Foi colocado no final para a página carregar mais rápido -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="../../assets/js/vendor/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
