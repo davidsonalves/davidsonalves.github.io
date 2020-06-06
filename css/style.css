@@ -1,12 +1,53 @@
-#lei{color:white;
-	text-decoration: none}
-p{text-align: justify;}
-#artefinal{width: 80px;}
-#tek{width: 80px;}
-#avatar{width: 180px;}
-#antares{width: 80px;}
-#artefinal{width: 80px;}
-#pro{width: 120px;}
-#prof{color: #fff}
-body{background-color: #E9ECEF;}
-#table{width: 100%; height: 100%;}
+body
+{
+    padding-top: 100px;
+    text-align: justify;
+}
+
+.carousel{
+     background-color:rgba(2, 141, 74, .8); 
+}
+#img-topo
+{
+    width: 80px;
+}
+#paulo
+{   
+    font-family: 'Caveat', cursive;
+
+}
+@media(max-width:767px)
+{
+    #home-quote .display-4{
+        font-size: 2.5em;
+        
+    }
+    body
+    {
+        padding-top: 0px;
+    }
+    .fixed-top
+    {
+        position: relative;
+    }
+
+  
+  
+}
+.box-shadow{
+    box-shadow: 0 2px 4px 0 rgba(91, 170, 133, .1),
+                0 4px 8px 0 rgba(91, 170, 133, .1);
+}
+.img-inf{
+    width:10px;
+}
+.icone
+{
+    height: 100px;
+}
+#home-qoute
+{
+    background: url('../img/saladeaula.jpg') center center;
+    background-size: cover;
+}
+#titulo-topo{filter:drop-shadow(2px 2px 2px #038C4A);}

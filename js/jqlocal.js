@@ -1,0 +1,7 @@
+$(function(){
+  
+    $("#contatos").attr("href", "#")
+  
+
+    
+});
