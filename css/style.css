@@ -10,11 +10,24 @@ body
 #img-topo
 {
     width: 80px;
+    
 }
 #paulo
 {   
     font-family: 'Caveat', cursive;
 
+}
+@media(max-width:500px){
+
+    #titulo-topo
+    {
+     visibility: hidden;
+    }
+    #img-topo{
+       width: 200px;
+       margin-left: 50%;
+    }
+   
 }
 @media(max-width:767px)
 {
