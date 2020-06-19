@@ -1,66 +1,101 @@
-body
-{
-    padding-top: 100px;
-    text-align: justify;
+ul li{
+    text-transform: uppercase;
+    font-size: 13px;
 }
+ul li:hover{
+    background:rgba(0, 0, 0, .05);
+    color: royalblue;
+    box-sizing: border-box;
+    box-shadow: rgba(0, 0, 0, 1);
+}
+ 
 
-.carousel{
-     background-color:rgba(2, 141, 74, .8); 
-}
-#img-topo
-{
-    width: 80px;
+.text-banner{
+    
+    color: whitesmoke;
+    font-size: 1.6rem;
+    font-weight: 400;
+    filter:drop-shadow(1px 1px 2px #fff);
     
 }
-#paulo
-{   
-    font-family: 'Caveat', cursive;
-
-}
+  
+.section-1{
+    height: 250px;
+    margin-top: 130px;
+    background: url(../img/destaque_modif.jpg); 
+    background-color: #343A40;
+    background-repeat: no-repeat;
+    
+ }
 @media(max-width:500px){
 
-    #titulo-topo
-    {
-     visibility: hidden;
-    }
     #img-topo{
-       width: 200px;
-       margin-left: 50%;
-    }
-   
-}
-@media(max-width:767px)
-{
-    #home-quote .display-4{
-        font-size: 2.5em;
-        
-    }
-    body
-    {
-        padding-top: 0px;
-    }
-    .fixed-top
-    {
-        position: relative;
-    }
+        width: 100px;
+        margin-left: 150%;
 
-  
-  
+     }
+      
 }
-.box-shadow{
-    box-shadow: 0 2px 4px 0 rgba(91, 170, 133, .1),
-                0 4px 8px 0 rgba(91, 170, 133, .1);
+#titulo-topo{
+    filter:drop-shadow(1px 2px 5px #000);
 }
-.img-inf{
-    width:10px;
+
+#infor-estagio-1, #infor-estagio-2{
+    border-right: 1px solid silver;
+   }
+@media(max-width:991px){
+
+     .infor-estagio{
+         border-right: none;
+     }
+     #infor-estagio-1, #infor-estagio-2{
+         border-right: none;
+         border-bottom: 1px solid silver;
+    }
 }
-.icone
-{
-    height: 100px;
+
+.infor-estagio:hover {
+        transition: 0.1s;
+        background: rgba(0, 0, 0, 0.8);
+        cursor: pointer;
+        color: black;
+}           
+
+
+.titulo::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #2a2426;
+    margin-top: 14px;
+    
 }
-#home-qoute
-{
-    background: url('../img/saladeaula.jpg') center center;
-    background-size: cover;
+
+.img-estagio{
+    width: 300px;
+    border-radius: 5px;
+    
 }
-#titulo-topo{filter:drop-shadow(2px 2px 2px #038C4A);}
+.texto-estagio{
+    
+    font-size: 16px;
+}
+
+.sobreamento:hover{
+    background-color: rgba(236, 236, 236, 1.0);
+}
+
+
+
+p{text-align: justify;}
+#okd{width: 200px;}
+#tek{width: 80px;}
+#avatar{width: 220px;}
+#antares{width: 150px;}
+#artefinal{width: 120px;}
+#pro{width: 120px;}
+#prof{color: #fff}
+#img-topo{width: 100px;}
+body{background-color:#F8F9FA}
+#table{width: 100%; height: 100%;}

@@ -1,294 +1,119 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <link rel="stylesheet" href="css/bootstrap.css">
+  <head>
+    <!-- Meta tags Obrigatórias -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/bootstrap.min.css ">
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Dancing+Script&family=Kaushan+Script&family=Mr+Bedfort&family=Pacifico&display=swap" rel="stylesheet">
-    <title>EEEP JAA</title>
-   
-</head>
-<body>
-<!--modal-->
-<div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="modelLoginTitulo" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Área para alunos matriculados</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="loginEmail">Email</label>
-              <input type="email" class="form-control" id="loginEmail" >
-              <small class="form-text text-muted">Nunca vamos compartilhar seu email, com ninguém.</small>
-            </div>
-            <div class="form-group">
-              <label for="loginSenha">Senha</label>
-              <input type="password" class="form-control" id="loginSenha" >
-            </div>
-          
-            <button type="submit" class="btn btn-primary">Entrar na conta</button>
-            <small class="form-text text-muted">Esqueceu a Senha? <a href="#">Clique aqui</a> </small>
-          </form>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-  <!--fecha o modal -->
 
-
-    <!-- inicio nav -->
+    <title>Estágio</title>
+  </head>
+  <body>
     <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top py-3 shadow-lg">
         <a href="index.html" class="navbar-brand">
-            <img src="img/ja.jpg" id="img-topo"alt="Caravan">          
-        </a><h2 id="titulo-topo">EEEP Joaquim Antônio Albano</h2>
+            <img src="img/ja.jpg" id="img-topo"alt="EEEP Joaquim Albano">          
+        </a>
+        <h2 id="titulo-topo">Estágio Informática</h2>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
             <span class="navbar-toggler-icon"></span>
           </button>
     
           <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
               <ul class="navbar-nav ml-auto">
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cursos</a>
-                        
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="index.html">Técnico Segurança do Trabalho</a>
-                            <a class="dropdown-item" href="index.html">Técnico Informática
-                            <a class="dropdown-item" href="index.html">Técnico Enfermagem</a>
-                            <a class="dropdown-item" href="index.html">Técnico Saúde Bucal</a>
-                           
-                        </div>
+                    <li class="nav-item dropdown ">
+                        <a href="index.html" class="nav-link  text-uppercase">Home</a>
+                                               
                     </li>
-                    <li class="nav-item">
-                       <a href="#" class="nav-link">Equipe JA</a>
+                    <li class="nav-item "">
+                       <a href="entrevistas.html" class="nav-link">Entrevista</a>
                    </li>
                    <li class="nav-item">
-                       <a href="#" class="nav-link">Contato</a>
+                       <a href="horasestagiadas.html" class="nav-link "">Horas Estagiadas</a>
                    </li>
-                   <li class="nav-item">
-                       <a href="#" class="nav-link"  data-toggle="modal" data-target="#modalLogin">Login</a>
+                   <li class="nav-item "">
+                       <a href="frequencia.html" class="nav-link"  data-toggle="modal" data-target="#modalLogin">Frequência</a>
                    </li>
-                   <li class="nav-item">
-                    <a href="#" class="btn btn-outline-primary ml-md-2">Inscreva-se</a>
-                    </li>
-                   
-              </ul>
+                   <li class="nav-item "">
+                       <a href="projetosocial.html" class="nav-link" >Projeto Social</a>
+                   </li>
+                </ul>
          </div>
-</nav>
-
- <section class="container-fluid">
-        <div class="row  text-white carousel">
-          <div class="col-lg-4 p-0 mt-2" >
-            <div id="carouselInf" class="carousel slide" data-ride="carousel">
-              <!-- <ol class="carousel-indicators">
-                <li data-target="#carouselInf" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselInf" data-slide-to="1"></li>
-                <li data-target="#carouselInf" data-slide-to="2"></li>
-              </ol> -->
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img class="w-100" src="img/saeb.jpg" alt="Saeb"> 
-                  
-                </div>
-                <div class="carousel-item">
-                  <img class=" w-100" src="img/enem.jpg" alt="Enem">
-                  
-                </div>
-                <div class="carousel-item">
-                  <img class=" w-100" src="img/cronograma1.jpg" alt="Cronograma">
-                  
-                </div>
-              </div>
-              <a class="carousel-control-prev" href="#carouselInf" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Anterior</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselInf" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Próximo</span>
-              </a>
+    </nav>
+    
+    <section class="container-fluid section-1  text-center pb-2" >
+        <div class="row">
+            <div class="container">
+                <div class="mt-5">
+                  <h3 class="text-banner" >
+                   Aqui você terá informação sobre todo o seu processo de estágio 2020, desde a sua aprovação na entrevista, como todo o seu progresso em relação as horas e dias estagiados.</h3>
+                  <h3 class="lead text-banner">
+                   A frequência do mês estará disponível para impressão.
+                  </h3>
+                   <h3 class="lead text-banner">Você também terá informações sobre o projeto social.</h3>
             </div>
-          </div>
-          
-              <div class="col-lg-8 p-4 aling-self-center">
-                  <!-- <h1 class="display-4 p-5 m-3" id="eeepja1"> EEEP Joaquim Antônio Albano</h1> -->
-                  <p class="lead justify-content-center p-4 ">No Enem 2019 100% dos alunos da Escola EEEP JOAQUIM ANTONIO ALBANO participaram da prova. A área de conhecimento com melhor rendimento foi Redação, que compreende as disciplinas Redação. Cadastre seu E-mail e receba informações de quando haverá seleção para você estudar na nossa escola! <br>
-                    No Enem 2019 100% dos alunos da Escola EEEP JOAQUIM ANTONIO ALBANO participaram da prova. A área de conhecimento com melhor rendimento foi Redação, que compreende as disciplinas Redação. Cadastre seu E-mail e receba informações de quando haverá seleção para você estudar na nossa escola!  <br>
-                    No Enem 2019 100% dos alunos da Escola EEEP JOAQUIM ANTONIO ALBANO participaram da prova. A área de conhecimento com melhor rendimento foi Redação, que compreende as disciplinas Redação. Cadastre seu E-mail e receba informações de quando haverá seleção para você estudar na nossa escola!</p>
-                  <form>
-                      <div class="input-group input-group-lg p-1"> 
-                          <input type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="button-addon2">
-                          <div class="input-group-append">
-                           <button class="btn btn-primary" type="button" id="button-addon2">Inscreva-se</button>
-                          </div>
-                        </div>
+        </div>
+        
+        </div>      
+    </section>
+   
+   
+ 
+ 
+<section class="animate-scroll d-block solucoes py-5 container">
+    <h3 class="text-secondary text-center ">
+        Algumas Informações                   
+        </h3>
+        <hr class="my-4">
+
       
-                  </form>
-              </div>    
-            
-     </div>
+    <div class="row">
+        <div class="col-md-4 col-12 sobreamento">
+            <h5 class="text-center"> O que é o Estágio Curricular?</h5>
+            <img src="img/oqestagio2.jpg" class="img-estagio ml-4" alt="">
+            <p class="texto-estagio">O estágio curricular faz parte da proposta dos cursos técnicos e é realizado em diferentes instituições, oportunizando ao estudante a vivência direta com a realidade que fará parte de sua atuação como futuro profissional. É realizado sob orientação e supervisão dos orientadores de estágio que também são responsáveis pelo processo de avaliação desse período.
+            </p>
+            <button type="button" class="btn btn-outline-primary mb-2"> Saiba +</button>
+       </div>
+         <div class="col-md-4 col-12 sobreamento">
+             <h5 class="text-center">  Estagiário tem direitos?</h5>
+            <img src="img/leiestagio2.jpg" class="img-estagio ml-4" alt="O que é estágio?">
+            <p class="texto-estagio">Em 2008, foi sancionada a lei n° 11.788, também conhecida como Lei do Estágio, que tem como objetivo inserir normas para as práticas de estágio. O estágio é uma maneira eficaz de desenvolver competências técnicas e comportamentais, além disso, pode ser a porta de entrada dos estudantes para o mercado de trabalho</p>
+            <button type="button" class="btn btn-outline-primary"> Baixe a Lei</button>
+        </div>
+        <div class="col-md-4 col-12 sobreamento">
+            <h5 class="text-center"> Empresas Concedentes</h5>
+            <img src="img/empresas2.jpg" class="img-estagio ml-4" alt="">
+            <p class="texto-estagio">A EEEP Joaquim Antônio Albano tem parceiras com várias empresas e sempre tem empresas que procuram a escola afim de saber mais sobre o projeto de estágio. Podemos dizer que todo ano tem renovação nas vagas de estágio. A empresas sempre renovam seu quadro de funcionários e nossos alunos sempre são lembrados quando surgem uma vaga.</p>
+            <button type="button" class="btn btn-outline-primary"> Saiba +</button>
+
+        </div>
+         
+       
+       
+        
+    </div>
+    
+    </div>
+
 </section>
 
 
-<section class="py-1 bg-light text-center">
-    <div class="container">
-      <div class="my-5">
-        <span class="h6 d-block">CONHEÇA OS CURSOS TÉCNICOS EM QUATRO ÁREAS</span>
-        <h2 class="display-4 text-primary" >Nossos cursos Técnicos são  </h2>
-      </div>
 
-        
-      <div class="row">
-        <div class="col-xl-3 col-md-6"">
-            <div class="d-flex justify-content-center icone">
-              <img src="img/sgt.jpg" alt="Segurança do Trabalho">
-            </div>
-            <h4>Segurança do Trabalho</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo, nemo nulla. <a href="#">Saiba mais</a> </p>
-           </div>
-
-        <div class="col-xl-3 col-md-6">
-          <div class="d-flex justify-content-center icone">
-             <img src="img/infor.jpg" alt="Informática">
-          </div>
-          <h4>Informática</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo, nemo nulla. <a href="#">Saiba mais</a> </p>
-        </div>
-
-        <div class="col-xl-3 col-md-6"">
-          <div class="d-flex justify-content-center icone">
-            <img src="img/SB.jpg" alt="Saúde Bucal">
-          </div> 
-          <h4>Sáude Bucal</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo, nemo nulla. <a href="#">Saiba mais</a> </p>
-        </div>
-
-        <div class="col-xl-3 col-md-6"">
-          <div class="d-flex justify-content-center icone">
-            <img src="img/enfer.jpg" alt="Enfermagem">
-          </div>
-            <h4>Enfermagem</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo, nemo nulla. <a href="#">Saiba mais</a> </p>
-        </div>
-      </div>
-      
-    </div>
-  </section>
-  <section id="home-qoute"  class="p-md-4">
-    <blockquote class="blockquote text-center text-white p-md-5 p-3">
-       <p class="display-4" id="paulo"><em>Educação não transforma o mundo. Educação muda as pessoas.
-           Pessoas transformam o mundo!
-       </em></p> 
-          <footer class="blockquote-footer text-white h2" >Paulo Freire</footer>
-          
-     </blockquote>
-   </section>
-   <section class="container">
-    <div class="my-5 text-center">
-      <span class="h6 d-block">AINDA ESTÁ COM DÚVIDAS?</span>
-      <h2 class="display-4 text-primary">Perguntas Frequentes</h2>
-    </div>
-    <div class="justify-content-center">
-      <div class="accordion" id="accordionExample">
-        <div class="card">
-          <div class="card-header" id="headingOne">
-            <h5 class="mb-0">
-              <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                → A escola é tempo integral?
-              </button>
-            </h5>
-          </div>
-      
-          <div id="collapseOne" class="collapse aria-labelledby="headingOne" data-parent="#accordionExample">
-            <div class="card-body">
-              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non alemanha 0 x 2 coreia do sul cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header" id="headingTwo">
-            <h5 class="mb-0">
-              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                → É verdade que no 3º ano  eu vou estagiar?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-            <div class="card-body">
-              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header" id="headingThree">
-            <h5 class="mb-0">
-              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                → É verdade que a escola prepara o aluno bem para o Enem?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-            <div class="card-body">
-              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-            </div>
-          </div>
-        </div>
-        <div class="accordion" id="accordionExample">
-          <div class="card">
-            <div class="card-header" id="heading4">
-              <h5 class="mb-0">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
-                  → Todos os cursos técnicos tem professores especializados?
-  
-                </button>
-              </h5>
-            </div>
-        
-            <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordionExample">
-              <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non alemanha 0 x 2 coreia do sul cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header" id="heading5">
-              <h5 class="mb-0">
-                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
-                  → Quando eu posso me inscrver para concorrer a uma vaga na escola?
-                </button>
-              </h5>
-            </div>
-            <div id="collapse5" class="collapse" aria-labelledby="heading5" data-parent="#accordionExample">
-              <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="text-center my-4">
-      <p class="small mb-2">ESTÁ MAIS DÚVIDAS? FALE CONOSCO </p>
-      <a class="btn btn-primary btn-lg" href="#">Entre em Contato</a>
-    </div>
-  </section>
-   
 <footer class="bg-dark text-white mt-4" >
     <div class="container py-4">
       <div class="row">
         <div class="col-md-3 col-6">
           <h4 class="h6" >PÁGINAS</h4>
           <ul class="list-unstyled">
-            <li><a href="#">Cursos</a></li>
-            <li><a href="#">Equipe JA</a></li>
-            <li><a id="contatos">Contato</a></li>
-            <li><a href="#">Login</a></li>
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">ENTREVISTA</a></li>
+            <li><a href="#">HORAS ESTAGIADAS</a></li>
+            <li><a href="#">FREQUÊNCIA</a></li>
+            <li><a href="#">PROJETO SOCIAL</a></li>
           </ul>
         </div>
         <div class="col-md-3 col-6">
@@ -305,9 +130,9 @@
         <div class="col-md-4" >
           <h4 class="h6" >DADOS DE CONTATO</h4>
           <ul class="list-unstyled text-secondary">
-            <li>eeepjoaquimalbano@eeepjoaquimalbano.com.br</li>
-            <li>(85)99999-9999</li>
-            <li>De Seg. à Sex. das 8h às 16:40h</li>
+            <li>eeepjalbano@gmail.com</li>
+            <li> (85) 3101-2072</li>
+            <li>De Seg. à Sex. das 8:00 às 16:40</li>
           </ul>
         </div>
         <div class="col-md-2 ">
@@ -322,15 +147,16 @@
         </div>
       </div>
     </div>
-    <div class="bg-primary text-center py-3">
-      <p class="mb-0">Professor Davidson Alves© 2020. Alguns direitos reservados.</p>
+    <div class="bg-primary py-3">
+      <p class="mb-0 text-center">Professor Davidson Alves© 2020. Direitos reservados.</p>
     </div>
 </footer>
 
-    <script src="js/bootstrap.js"></script>
+    <!-- JavaScript (Opcional) -->
+    <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-<script src="js/jqlocal.js"></script>
-</body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
+  </body>
 </html>
