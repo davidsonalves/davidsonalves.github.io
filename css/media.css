@@ -1,0 +1,27 @@
+@media(max-width:991px){
+
+    .infor-estagio{
+        border-right: none;
+    }
+    #infor-estagio-1, #infor-estagio-2{
+        border-right: none;
+        border-bottom: 1px solid silver;
+   }
+}
+ 
+@media(max-width:795px){
+    #img-topo{
+        width: 350px;
+        margin-left: 5%;
+
+     }
+     .text-banner{
+        font-size: 1.2rem;
+     }
+     
+}
+@media (max-width:500px){
+    .img-psocial,.foto-projeto{
+        margin-left: 25%;
+    }
+}

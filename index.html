@@ -8,16 +8,18 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="css/bootstrap.min.css ">
+    
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/media.css">
 
     <title>Estágio</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top py-3 shadow-lg">
         <a href="index.html" class="navbar-brand">
-            <img src="img/ja.jpg" id="img-topo"alt="EEEP Joaquim Albano">          
+            <img src="img/logotitulo1.jpg" id="img-topo"alt="EEEP Joaquim Albano">          
         </a>
-        <h2 id="titulo-topo">Estágio Informática</h2>
+        <!-- <h2 id="titulo-topo">Estágio Informática</h2> -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -25,43 +27,35 @@
           <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
               <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown ">
-                        <a href="index.html" class="nav-link  text-uppercase">Home</a>
+                        <a href="index.html" class="nav-link text-uppercase">Home</a>
                                                
                     </li>
-                    <li class="nav-item "">
+                    <li class="nav-item ">
                        <a href="entrevistas.html" class="nav-link">Entrevista</a>
                    </li>
                    <li class="nav-item">
-                       <a href="horasestagiadas.html" class="nav-link "">Horas Estagiadas</a>
+                       <a href="hestagiadas.html" class="nav-link "">Horas Estagiadas</a>
+                   </li>
+                   <li class="nav-item">
+                       <a href="frequencia.html" class="nav-link">Frequência</a>
                    </li>
                    <li class="nav-item "">
-                       <a href="frequencia.html" class="nav-link"  data-toggle="modal" data-target="#modalLogin">Frequência</a>
-                   </li>
-                   <li class="nav-item "">
-                       <a href="projetosocial.html" class="nav-link" >Projeto Social</a>
+                       <a href="psocial.html" class="nav-link" >Projeto Social</a>
                    </li>
                 </ul>
          </div>
     </nav>
-    
-    <section class="container-fluid section-1  text-center pb-2" >
+        <section class="container-fluid section-1  text-center pb-2" >
         <div class="row">
             <div class="container">
-                <div class="mt-5">
-                  <h3 class="text-banner" >
-                   Aqui você terá informação sobre todo o seu processo de estágio 2020, desde a sua aprovação na entrevista, como todo o seu progresso em relação as horas e dias estagiados.</h3>
-                  <h3 class="lead text-banner">
-                   A frequência do mês estará disponível para impressão.
-                  </h3>
-                   <h3 class="lead text-banner">Você também terá informações sobre o projeto social.</h3>
+                <div class="text-banner">
+                 Aqui você terá informação sobre todo o seu processo de estágio 2020, desde a sua aprovação na entrevista, como todo o seu progresso em relação as horas e dias estagiados. A frequência do mês estará disponível para impressão.
+                 Você também terá informações sobre o projeto social.
             </div>
         </div>
         
         </div>      
     </section>
-   
-   
- 
  
 <section class="animate-scroll d-block solucoes py-5 container">
     <h3 class="text-secondary text-center ">
@@ -71,37 +65,38 @@
 
       
     <div class="row">
-        <div class="col-md-4 col-12 sobreamento">
+        <div class="col-md-12 col-lg-4 sobreamento">
             <h5 class="text-center"> O que é o Estágio Curricular?</h5>
-            <img src="img/oqestagio2.jpg" class="img-estagio ml-4" alt="">
+            <div class="d-flex justify-content-center">
+               <img src="img/oqestagio2.jpg" class="img-estagio ml-4" alt="">
+            </div>
+           
+           
             <p class="texto-estagio">O estágio curricular faz parte da proposta dos cursos técnicos e é realizado em diferentes instituições, oportunizando ao estudante a vivência direta com a realidade que fará parte de sua atuação como futuro profissional. É realizado sob orientação e supervisão dos orientadores de estágio que também são responsáveis pelo processo de avaliação desse período.
             </p>
             <button type="button" class="btn btn-outline-primary mb-2"> Saiba +</button>
        </div>
-         <div class="col-md-4 col-12 sobreamento">
-             <h5 class="text-center">  Estagiário tem direitos?</h5>
-            <img src="img/leiestagio2.jpg" class="img-estagio ml-4" alt="O que é estágio?">
-            <p class="texto-estagio">Em 2008, foi sancionada a lei n° 11.788, também conhecida como Lei do Estágio, que tem como objetivo inserir normas para as práticas de estágio. O estágio é uma maneira eficaz de desenvolver competências técnicas e comportamentais, além disso, pode ser a porta de entrada dos estudantes para o mercado de trabalho</p>
-            <button type="button" class="btn btn-outline-primary"> Baixe a Lei</button>
+         <div class="col-md-12 col-lg-4  sobreamento">
+            <h5 class="text-center">  Estagiário tem direitos?</h5>
+            <div class="d-flex justify-content-center">
+              <img src="img/leiestagio2.jpg" class="img-estagio ml-4" alt="Lei do estagiário ?">
+            </div>   
+            <p class="texto-estagio">Em 2008, foi sancionada a lei n° 11.788, também conhecida como Lei do Estágio, que tem como objetivo inserir normas para as práticas de estágio. O estágio é uma maneira eficaz de desenvolver competências técnicas e comportamentais, além disso, pode ser a porta de entrada dos estudantes para o mercado de trabalho. <a href="docs/lei_estagio.pdf" target="_blank" >Clique aqui e baixe a Lei</a> </p>
+            <a href="https://www.politize.com.br/lei-do-estagio-estagiario-tem-direitos/" target="_blank" class="saiba"><button type="button" class="btn btn-outline-primary">Saiba +</button></a>
         </div>
-        <div class="col-md-4 col-12 sobreamento">
+        <div class="col-md-12 col-lg-4 sobreamento">
             <h5 class="text-center"> Empresas Concedentes</h5>
-            <img src="img/empresas2.jpg" class="img-estagio ml-4" alt="">
+            <div class="d-flex justify-content-center">
+              <img src="img/empresas2.jpg" class="img-estagio ml-4" alt="Empresas Concedentes">
+            </div>
             <p class="texto-estagio">A EEEP Joaquim Antônio Albano tem parceiras com várias empresas e sempre tem empresas que procuram a escola afim de saber mais sobre o projeto de estágio. Podemos dizer que todo ano tem renovação nas vagas de estágio. A empresas sempre renovam seu quadro de funcionários e nossos alunos sempre são lembrados quando surgem uma vaga.</p>
             <button type="button" class="btn btn-outline-primary"> Saiba +</button>
-
         </div>
-         
-       
-       
-        
-    </div>
+      </div>
     
     </div>
 
 </section>
-
-
 
 <footer class="bg-dark text-white mt-4" >
     <div class="container py-4">
@@ -110,14 +105,16 @@
           <h4 class="h6" >PÁGINAS</h4>
           <ul class="list-unstyled">
             <li><a href="index.html">HOME</a></li>
-            <li><a href="entrevista.html">ENTREVISTA</a></li>
+            <li><a href="entrevistas.html">ENTREVISTA</a></li>
             <li><a href="hestagiadas.html">HORAS ESTAGIADAS</a></li>
             <li><a href="frequencia.html">FREQUÊNCIA</a></li>
             <li><a href="psocial.html">PROJETO SOCIAL</a></li>
           </ul>
         </div>
         <div class="col-md-3 col-6">
-          <h4 class="h6" >Cursos Técnicos</h4>
+          <h4 class="h6" >Cursos Técnicos da 
+            EEEEP Joaquim Albano
+          </h4>
           <ul class="list-unstyled">
             <li><a href="#">Segurança do Trabalho</a></li>
             <li><a href="#">Informática</a></li>

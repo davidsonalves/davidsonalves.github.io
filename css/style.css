@@ -8,51 +8,36 @@ ul li:hover{
     box-sizing: border-box;
     box-shadow: rgba(0, 0, 0, 1);
 }
- 
 
 .text-banner{
-    
+    margin-top: 120px;
     color: whitesmoke;
     font-size: 1.6rem;
     font-weight: 400;
     filter:drop-shadow(1px 1px 2px #fff);
-    
-}
   
+}
+
 .section-1{
-    height: 250px;
-    margin-top: 130px;
+    height: 350px;
+    margin-top: 110px;
     background: url(../img/destaque_modif.jpg); 
     background-color: #343A40;
     background-repeat: no-repeat;
     
  }
-@media(max-width:500px){
+ #img-topo{
+     width: 350px;
+ }
 
-    #img-topo{
-        width: 100px;
-        margin-left: 150%;
-
-     }
-      
-}
 #titulo-topo{
     filter:drop-shadow(1px 2px 5px #000);
 }
 
+
 #infor-estagio-1, #infor-estagio-2{
     border-right: 1px solid silver;
    }
-@media(max-width:991px){
-
-     .infor-estagio{
-         border-right: none;
-     }
-     #infor-estagio-1, #infor-estagio-2{
-         border-right: none;
-         border-bottom: 1px solid silver;
-    }
-}
 
 .infor-estagio:hover {
         transition: 0.1s;
@@ -75,27 +60,68 @@ ul li:hover{
 .img-estagio{
     width: 300px;
     border-radius: 5px;
-    
+  
 }
 .texto-estagio{
     
     font-size: 16px;
+    text-align: justify;
 }
 
 .sobreamento:hover{
+    transition: .3s;
     background-color: rgba(236, 236, 236, 1.0);
 }
 
+.saiba:hover{
+    color: #fff;
+    text-decoration:none;
+}
 
+/* entrevistas */
 
-p{text-align: justify;}
-#okd{width: 200px;}
-#tek{width: 80px;}
-#avatar{width: 220px;}
-#antares{width: 150px;}
-#artefinal{width: 120px;}
-#pro{width: 120px;}
-#prof{color: #fff}
-#img-topo{width: 100px;}
-body{background-color:#F8F9FA}
-#table{width: 100%; height: 100%;}
+.section-table{
+    margin-top: 160px;
+}
+table thead{
+    text-transform: uppercase;
+}
+
+/* frequencia */
+.section-frequencia{
+    margin-top: 160px;
+}
+.frequencia{
+    width: 200px;
+    border: 1px solid #000;
+
+}
+.sobreamento-freq:hover{
+    transition: .3s;
+    background-color: rgba(236, 236, 236, 1.0);
+    text-decoration: none;
+    cursor:no-drop;
+}
+
+/* projeto */
+#img-projeto3{
+    width: 350px;
+    background-color: rgba(236, 236, 236, 1.0);
+     
+}
+#psocial{
+    background-color:rgba(0, 0, 0, .05);
+       
+}
+.row-1:hover{
+    background-color: rgba(236, 236, 236, 1.0);
+     
+}
+.img-psocial{
+    width: 200px;
+    border: 1px solid #000;
+}
+.foto-projeto{
+    width: 300px;
+}
+
