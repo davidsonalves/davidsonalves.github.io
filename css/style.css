@@ -24,6 +24,7 @@ ul li:hover{
     background: url(../img/destaque_modif.jpg); 
     background-color: #343A40;
     background-repeat: no-repeat;
+    background-size: cover;
     
  }
  #img-topo{
