@@ -1,64 +1,128 @@
-* {box-sizing: border-box;}
-
-body { 
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  height: 2500px;
+ul li{
+    text-transform: uppercase;
+    font-size: 13px;
+}
+ul li:hover{
+    background:rgba(0, 0, 0, .05);
+    color: royalblue;
+    box-sizing: border-box;
+    box-shadow: rgba(0, 0, 0, 1);
 }
 
-#navbar {
-  overflow: hidden;
-  /* background-color: #f1f1f1; */
-  padding: 90px 10px;
-  transition: 0.4s;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 99;
-}
-
-#navbar a {
-  float: left;
-  color: black;
-  text-align: center;
-  padding: 12px;
-  text-decoration: none;
-  font-size: 18px; 
-  line-height: 25px;
-  border-radius: 4px;
-}
-
-#navbar #logo {
-  font-size: 35px;
-  font-weight: bold;
-  transition: 0.4s;
-}
-
-#navbar a:hover {
-  background-color: #ddd;
-  color: black;
+.text-banner{
+    margin-top: 120px;
+    color: whitesmoke;
+    font-size: 1.6rem;
+    font-weight: 400;
+    filter:drop-shadow(1px 1px 2px #fff);
   
 }
 
-#navbar a.active {
-  background-color: dodgerblue;
-  color: white;
+.section-1{
+    height: 350px;
+    margin-top: 110px;
+    background: url(../img/destaque_modif.jpg); 
+    background-color: #343A40;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+ }
+ #img-topo{
+     width: 350px;
+ }
+
+#titulo-topo{
+    filter:drop-shadow(1px 2px 5px #000);
 }
 
-#navbar-right {
-  float: right;
-}
 
-@media screen and (max-width: 580px) {
-  #navbar {
-    padding: 20px 10px !important;
-  }
-  #navbar a {
-    float: none;
+#infor-estagio-1, #infor-estagio-2{
+    border-right: 1px solid silver;
+   }
+
+.infor-estagio:hover {
+        transition: 0.1s;
+        background: rgba(0, 0, 0, 0.8);
+        cursor: pointer;
+        color: black;
+}           
+
+
+.titulo::before {
+    content: '';
     display: block;
-    text-align: left;
-  }
-  #navbar-right {
-    float: none;
-  }
+    width: 100%;
+    height: 2px;
+    background: #2a2426;
+    margin-top: 14px;
+    
 }
+
+.img-estagio{
+    width: 300px;
+    border-radius: 5px;
+  
+}
+.texto-estagio{
+    
+    font-size: 16px;
+    text-align: justify;
+}
+
+.sobreamento:hover{
+    transition: .3s;
+    background-color: rgba(236, 236, 236, 1.0);
+}
+
+.saiba:hover{
+    color: #fff;
+    text-decoration:none;
+}
+
+/* entrevistas */
+
+.section-table{
+    margin-top: 160px;
+}
+table thead{
+    text-transform: uppercase;
+}
+
+/* frequencia */
+.section-frequencia{
+    margin-top: 160px;
+}
+.frequencia{
+    width: 200px;
+    border: 1px solid #000;
+
+}
+.sobreamento-freq:hover{
+    transition: .3s;
+    background-color: rgba(236, 236, 236, 1.0);
+    text-decoration: none;
+    cursor:no-drop;
+}
+
+/* projeto */
+#img-projeto3{
+    width: 350px;
+    background-color: rgba(236, 236, 236, 1.0);
+     
+}
+#psocial{
+    background-color:rgba(0, 0, 0, .05);
+       
+}
+.row-1:hover{
+    background-color: rgba(236, 236, 236, 1.0);
+     
+}
+.img-psocial{
+    width: 200px;
+    border: 1px solid #000;
+}
+.foto-projeto{
+    width: 300px;
+}
+
