@@ -86,8 +86,11 @@ ul li:hover{
 }
 table thead{
     text-transform: uppercase;
+    
 }
-
+table th{
+    text-align: left;
+}
 /* frequencia */
 .section-frequencia{
     margin-top: 160px;
