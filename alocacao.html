@@ -1,0 +1,1453 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sistema de Distribuição de Alunos para Estágios </title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+rel="stylesheet"
+/>
+<style>
+body {
+font-family: 'Inter', sans-serif;
+background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+}
+/* Glassmorphism effect */
+.glass-card {
+background: rgba(255, 255, 255, 0.85);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(255, 255, 255, 0.2);
+box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+}
+/* Modern scrollbar */
+::-webkit-scrollbar {
+width: 8px;
+height: 8px;
+}
+::-webkit-scrollbar-track {
+background: rgba(0, 0, 0, 0.05);
+border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+background: rgba(0, 0, 0, 0.2);
+border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+background: rgba(0, 0, 0, 0.3);
+}
+/* Animations */
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(10px); }
+to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideIn {
+from { opacity: 0; transform: translateX(-10px); }
+to { opacity: 1; transform: translateX(0); }
+}
+@keyframes pulse-glow {
+0%, 100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
+50% { box-shadow: 0 0 15px rgba(59, 130, 246, 0.8); }
+}
+.fade-in {
+animation: fadeIn 0.3s ease-out;
+}
+.slide-in {
+animation: slideIn 0.3s ease-out;
+}
+.pulse-glow {
+animation: pulse-glow 2s infinite;
+}
+/* Card hover effects */
+.hover-lift {
+transition: all 0.3s ease;
+}
+.hover-lift:hover {
+transform: translateY(-4px);
+box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+/* Gradient backgrounds */
+.gradient-header {
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+.gradient-aluno {
+background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+}
+.gradient-empresa {
+background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+/* Shimmer loading effect */
+.shimmer {
+background: linear-gradient(90deg,
+rgba(255,255,255,0) 0%,
+rgba(255,255,255,0.3) 50%,
+rgba(255,255,255,0) 100%);
+background-size: 200% 100%;
+animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer {
+0% { background-position: -200% 0; }
+100% { background-position: 200% 0; }
+}
+/* Status indicators */
+.status-dot {
+width: 10px;
+height: 10px;
+border-radius: 50%;
+display: inline-block;
+margin-right: 6px;
+}
+.status-available { background-color: #10b981; }
+.status-full { background-color: #ef4444; }
+.status-warning { background-color: #f59e0b; }
+/* Progress bar animation */
+.progress-bar {
+transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* Custom checkbox */
+.custom-checkbox {
+position: relative;
+width: 20px;
+height: 20px;
+border-radius: 4px;
+border: 2px solid #d1d5db;
+cursor: pointer;
+transition: all 0.2s;
+}
+.custom-checkbox.checked {
+background-color: #3b82f6;
+border-color: #3b82f6;
+}
+.custom-checkbox.checked::after {
+content: "✓";
+position: absolute;
+color: white;
+font-size: 14px;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+}
+/* Edit button styles */
+.btn-edit {
+transition: all 0.2s ease;
+}
+.btn-edit:hover {
+transform: scale(1.1);
+}
+/* Text truncation for long names */
+.text-truncate {
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+}
+.text-truncate-2 {
+overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+word-break: break-word;
+}
+/* Ensure no overflow in cards */
+.empresa-card, .aluno-card {
+max-width: 100%;
+overflow: hidden;
+}
+</style>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- Header com gradiente moderno -->
+<header class="gradient-header text-white shadow-xl relative overflow-hidden">
+<div class="absolute inset-0 bg-black opacity-5"></div>
+<div class="container mx-auto px-4 py-5 relative z-10">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="bg-white/20 p-3 rounded-xl backdrop-blur-sm">
+<i class="fas fa-graduation-cap text-2xl"></i>
+</div>
+<div>
+<h1 class="text-2xl md:text-3xl font-bold tracking-tight">Sistema de Estágios</h1>
+<p class="text-blue-100 text-sm md:text-base opacity-90">Distribuição inteligente de alunos para empresas</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 justify-center md:justify-end">
+<button
+id="btnOpenModalAluno"
+class="gradient-aluno text-white px-5 py-3 rounded-xl hover:shadow-lg transition-all duration-300 flex items-center gap-2 font-medium hover:scale-105 active:scale-95"
+aria-label="Cadastrar novo aluno"
+>
+<i class="fas fa-user-plus"></i>
+<span class="hidden sm:inline">Novo Aluno</span>
+</button>
+<button
+id="btnOpenModalEmpresa"
+class="gradient-empresa text-white px-5 py-3 rounded-xl hover:shadow-lg transition-all duration-300 flex items-center gap-2 font-medium hover:scale-105 active:scale-95"
+aria-label="Cadastrar nova empresa"
+>
+<i class="fas fa-building"></i>
+<span class="hidden sm:inline">Nova Empresa</span>
+</button>
+<div class="relative group">
+<button
+class="bg-white/20 backdrop-blur-sm text-white px-5 py-3 rounded-xl hover:bg-white/30 transition-all duration-300 flex items-center gap-2 font-medium"
+aria-label="Mais opções"
+>
+<i class="fas fa-ellipsis-h"></i>
+<span class="hidden sm:inline">Mais</span>
+</button>
+<div class="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-2xl py-2 z-20 hidden group-hover:block border border-gray-100">
+<button id="btnExportar" class="w-full text-left px-4 py-3 hover:bg-gray-50 text-gray-700 flex items-center gap-3">
+<i class="fas fa-download text-purple-600"></i>
+<span>Exportar Dados</span>
+</button>
+<button id="btnImportar" class="w-full text-left px-4 py-3 hover:bg-gray-50 text-gray-700 flex items-center gap-3">
+<i class="fas fa-upload text-yellow-600"></i>
+<span>Importar Dados</span>
+</button>
+<div class="border-t my-1"></div>
+<button id="btnLimparDados" class="w-full text-left px-4 py-3 hover:bg-red-50 text-red-600 flex items-center gap-3">
+<i class="fas fa-trash-alt"></i>
+<span>Limpar Tudo</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Stats bar -->
+<div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+<div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 flex items-center justify-between">
+<div>
+<p class="text-sm text-blue-100">Total de Alunos</p>
+<p id="contadorAlunos" class="text-2xl font-bold">0</p>
+</div>
+<i class="fas fa-user-graduate text-2xl opacity-70"></i>
+</div>
+<div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 flex items-center justify-between">
+<div>
+<p class="text-sm text-blue-100">Total de Empresas</p>
+<p id="contadorEmpresas" class="text-2xl font-bold">0</p>
+</div>
+<i class="fas fa-building text-2xl opacity-70"></i>
+</div>
+<div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 flex items-center justify-between">
+<div>
+<p class="text-sm text-blue-100">Alocados</p>
+<p id="contadorAlocados" class="text-2xl font-bold">0</p>
+</div>
+<i class="fas fa-check-circle text-2xl opacity-70"></i>
+</div>
+</div>
+</div>
+</header>
+<main class="container mx-auto px-4 py-8 flex-grow">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Coluna 1: Alunos -->
+<div class="lg:col-span-1">
+<div class="glass-card rounded-2xl shadow-xl p-6 h-full">
+<div class="flex items-center justify-between mb-6">
+<div>
+<h2 class="text-xl font-bold text-gray-800 flex items-center gap-3">
+<div class="gradient-aluno p-2 rounded-lg">
+<i class="fas fa-users text-white"></i>
+</div>
+<span>Alunos Disponíveis</span>
+</h2>
+<p class="text-gray-500 text-sm mt-1">Arraste para alocar nas empresas</p>
+</div>
+</div>
+<div class="mb-6 relative">
+<div class="relative">
+<input
+type="search"
+id="searchAlunos"
+placeholder="Buscar aluno por nome ou área..."
+class="w-full bg-gray-50 border border-gray-200 rounded-xl px-5 py-4 pl-12 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-gray-700"
+aria-label="Buscar alunos"
+/>
+<i class="fas fa-search absolute left-4 top-4 text-gray-400"></i>
+<div class="absolute right-3 top-3">
+<span id="alunosFiltrados" class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">0</span>
+</div>
+</div>
+</div>
+<div
+id="listaAlunos"
+class="space-y-4 overflow-y-auto pr-2"
+style="max-height: 500px;"
+aria-label="Lista de alunos cadastrados"
+>
+<div class="text-center py-12">
+<div class="inline-block p-6 bg-blue-50 rounded-full mb-4">
+<i class="fas fa-user-graduate text-4xl text-blue-300"></i>
+</div>
+<h3 class="text-gray-400 font-medium">Nenhum aluno cadastrado</h3>
+<p class="text-gray-300 text-sm mt-1">Adicione alunos para começar a distribuição</p>
+<button
+id="btnAddAlunoEmpty"
+class="mt-4 gradient-aluno text-white px-5 py-2 rounded-lg hover:shadow-lg transition flex items-center gap-2 mx-auto"
+>
+<i class="fas fa-plus"></i> Adicionar Primeiro Aluno
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Coluna 2 e 3: Empresas -->
+<div class="lg:col-span-2">
+<div class="glass-card rounded-2xl shadow-xl p-6 h-full">
+<div class="flex items-center justify-between mb-6">
+<div>
+<h2 class="text-xl font-bold text-gray-800 flex items-center gap-3">
+<div class="gradient-empresa p-2 rounded-lg">
+<i class="fas fa-briefcase text-white"></i>
+</div>
+<span>Empresas Parceiras</span>
+</h2>
+<p class="text-gray-500 text-sm mt-1">Arraste alunos para as vagas disponíveis</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative">
+<input
+type="search"
+id="searchEmpresas"
+placeholder="Buscar empresa..."
+class="bg-gray-50 border border-gray-200 rounded-xl px-4 py-2 pl-10 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition text-sm w-48"
+aria-label="Buscar empresas"
+/>
+<i class="fas fa-search absolute left-3 top-2.5 text-gray-400"></i>
+</div>
+<button
+id="btnFiltrarAreaEmpresa"
+class="bg-green-50 text-green-600 p-2 rounded-lg hover:bg-green-100 transition"
+title="Filtrar por área"
+>
+<i class="fas fa-filter"></i>
+</button>
+</div>
+</div>
+<!-- Status Summary -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+<div class="bg-blue-50 rounded-xl p-4 border border-blue-100">
+<div class="flex items-center justify-between">
+<div>
+<p class="text-xs text-blue-600 font-medium">Vagas Totais</p>
+<p id="vagasTotais" class="text-xl font-bold text-gray-800">0</p>
+</div>
+<i class="fas fa-door-open text-blue-400"></i>
+</div>
+</div>
+<div class="bg-green-50 rounded-xl p-4 border border-green-100">
+<div class="flex items-center justify-between">
+<div>
+<p class="text-xs text-green-600 font-medium">Vagas Livres</p>
+<p id="vagasLivres" class="text-xl font-bold text-gray-800">0</p>
+</div>
+<i class="fas fa-check-circle text-green-400"></i>
+</div>
+</div>
+<div class="bg-yellow-50 rounded-xl p-4 border border-yellow-100">
+<div class="flex items-center justify-between">
+<div>
+<p class="text-xs text-yellow-600 font-medium">Parcialmente Ocupadas</p>
+<p id="parcialOcupadas" class="text-xl font-bold text-gray-800">0</p>
+</div>
+<i class="fas fa-hourglass-half text-yellow-400"></i>
+</div>
+</div>
+<div class="bg-red-50 rounded-xl p-4 border border-red-100">
+<div class="flex items-center justify-between">
+<div>
+<p class="text-xs text-red-600 font-medium">Empresas Lotadas</p>
+<p id="empresasLotadas" class="text-xl font-bold text-gray-800">0</p>
+</div>
+<i class="fas fa-times-circle text-red-400"></i>
+</div>
+</div>
+</div>
+<div
+id="listaEmpresas"
+class="grid grid-cols-1 md:grid-cols-2 gap-6 overflow-y-auto"
+style="max-height: 500px;"
+aria-label="Lista de empresas cadastradas"
+>
+<div class="col-span-full text-center py-12">
+<div class="inline-block p-6 bg-green-50 rounded-full mb-4">
+<i class="fas fa-building text-4xl text-green-300"></i>
+</div>
+<h3 class="text-gray-400 font-medium">Nenhuma empresa cadastrada</h3>
+<p class="text-gray-300 text-sm mt-1">Adicione empresas para oferecer vagas de estágio</p>
+<button
+id="btnAddEmpresaEmpty"
+class="mt-4 gradient-empresa text-white px-5 py-2 rounded-lg hover:shadow-lg transition flex items-center gap-2 mx-auto"
+>
+<i class="fas fa-plus"></i> Adicionar Primeira Empresa
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-gray-900 text-gray-400 py-6 mt-8">
+<div class="container mx-auto px-4">
+<div class="flex flex-col md:flex-row justify-between items-center gap-4">
+<div>
+<p class="text-sm">&copy; 2026 Sistema de Distribuição de Estágios. Todos os direitos reservados.</p>
+<p class="text-xs text-gray-500 mt-1">Desenvolvido por: PROF: Ródino</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="text-xs text-gray-500">
+<i class="fas fa-database mr-1"></i>
+<span id="storageInfo">Dados armazenados localmente</span>
+</div>
+<div class="flex gap-2">
+<a href="#" class="text-gray-400 hover:text-white transition">
+<i class="fab fa-github"></i>
+</a>
+<a href="#" class="text-gray-400 hover:text-white transition">
+<i class="fas fa-question-circle"></i>
+</a>
+</div>
+</div>
+</div>
+</div>
+</footer>
+
+<!-- Modal Empresa -->
+<div
+id="modalOverlay"
+class="fixed inset-0 hidden items-center justify-center z-50 p-4"
+role="dialog"
+aria-modal="true"
+>
+<div class="absolute inset-0 bg-black opacity-50"></div>
+<div
+id="modalEmpresa"
+class="glass-card rounded-2xl shadow-2xl max-w-md w-full p-8 relative z-10 fade-in"
+tabindex="-1"
+>
+<div class="flex items-center justify-between mb-6">
+<div>
+<h3 class="text-2xl font-bold text-gray-800" id="modalEmpresaTitle">Nova Empresa</h3>
+<p class="text-gray-500 text-sm mt-1" id="modalEmpresaSubtitle">Cadastre uma nova empresa parceira</p>
+</div>
+<button
+id="btnCloseModalEmpresa"
+class="text-gray-400 hover:text-gray-600 transition p-2 rounded-full hover:bg-gray-100"
+aria-label="Fechar modal"
+>
+<i class="fas fa-times text-xl"></i>
+</button>
+</div>
+<form id="formEmpresa" class="space-y-6">
+<input type="hidden" id="editEmpresaIndex" value="-1" />
+<div>
+<label for="nomeEmpresa" class="block text-gray-700 font-medium mb-2">Nome da Empresa</label>
+<input
+type="text"
+id="nomeEmpresa"
+class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+placeholder="Ex: Tech Innovations SA"
+required
+/>
+<p id="nomeEmpresaError" class="text-red-500 text-sm mt-1 hidden">Por favor, insira o nome da empresa.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label for="vagasEmpresa" class="block text-gray-700 font-medium mb-2">Número de Vagas</label>
+<div class="relative">
+<input
+type="number"
+id="vagasEmpresa"
+min="1"
+max="20"
+class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+placeholder="Ex: 5"
+required
+/>
+<div class="absolute right-3 top-3 text-gray-400">
+<i class="fas fa-users"></i>
+</div>
+</div>
+<p id="vagasEmpresaError" class="text-red-500 text-sm mt-1 hidden">Insira um número entre 1 e 20.</p>
+</div>
+<div>
+<label for="areaEmpresa" class="block text-gray-700 font-medium mb-2">Área de Atuação</label>
+<div class="relative">
+<input
+type="text"
+id="areaEmpresa"
+class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+placeholder="Ex: Tecnologia"
+list="areasSugeridas"
+required
+/>
+<div class="absolute right-3 top-3 text-gray-400">
+<i class="fas fa-briefcase"></i>
+</div>
+</div>
+<p id="areaEmpresaError" class="text-red-500 text-sm mt-1 hidden">Por favor, insira a área de atuação.</p>
+</div>
+</div>
+<datalist id="areasSugeridas"></datalist>
+<div class="flex justify-end gap-4 pt-4">
+<button
+type="button"
+id="btnCancelarEmpresa"
+class="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition font-medium"
+>
+Cancelar
+</button>
+<button
+type="submit"
+class="gradient-empresa text-white px-6 py-3 rounded-xl hover:shadow-lg transition font-medium flex items-center gap-2"
+>
+<i class="fas fa-check"></i>
+<span id="btnEmpresaSubmitText">Cadastrar Empresa</span>
+</button>
+</div>
+</form>
+</div>
+</div>
+
+<!-- Modal Aluno -->
+<div
+id="modalOverlayAluno"
+class="fixed inset-0 hidden items-center justify-center z-50 p-4"
+role="dialog"
+aria-modal="true"
+>
+<div class="absolute inset-0 bg-black opacity-50"></div>
+<div
+id="modalAluno"
+class="glass-card rounded-2xl shadow-2xl max-w-md w-full p-8 relative z-10 fade-in"
+tabindex="-1"
+>
+<div class="flex items-center justify-between mb-6">
+<div>
+<h3 class="text-2xl font-bold text-gray-800" id="modalAlunoTitle">Novo Aluno</h3>
+<p class="text-gray-500 text-sm mt-1" id="modalAlunoSubtitle">Cadastre um novo aluno para estágio</p>
+</div>
+<button
+id="btnCloseModalAluno"
+class="text-gray-400 hover:text-gray-600 transition p-2 rounded-full hover:bg-gray-100"
+aria-label="Fechar modal"
+>
+<i class="fas fa-times text-xl"></i>
+</button>
+</div>
+<form id="formAluno" class="space-y-6">
+<input type="hidden" id="editAlunoIndex" value="-1" />
+<div>
+<label for="nomeAluno" class="block text-gray-700 font-medium mb-2">Nome Completo</label>
+<input
+type="text"
+id="nomeAluno"
+class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+placeholder="Ex: Maria Silva Santos"
+required
+/>
+<p id="nomeAlunoError" class="text-red-500 text-sm mt-1 hidden">Por favor, insira o nome do aluno.</p>
+</div>
+<div>
+<label for="areaAluno" class="block text-gray-700 font-medium mb-2">Área de Interesse</label>
+<div class="relative">
+<input
+type="text"
+id="areaAluno"
+class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+placeholder="Ex: Desenvolvimento Web"
+list="areasSugeridasAluno"
+/>
+<div class="absolute right-3 top-3 text-gray-400">
+<i class="fas fa-graduation-cap"></i>
+</div>
+</div>
+<p class="text-gray-400 text-xs mt-2">Deixe em branco se não tiver área definida</p>
+</div>
+<datalist id="areasSugeridasAluno"></datalist>
+<div class="flex justify-end gap-4 pt-4">
+<button
+type="button"
+id="btnCancelarAluno"
+class="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition font-medium"
+>
+Cancelar
+</button>
+<button
+type="submit"
+class="gradient-aluno text-white px-6 py-3 rounded-xl hover:shadow-lg transition font-medium flex items-center gap-2"
+>
+<i class="fas fa-user-plus" id="btnAlunoIcon"></i>
+<span id="btnAlunoSubmitText">Cadastrar Aluno</span>
+</button>
+</div>
+</form>
+</div>
+</div>
+
+<!-- Input oculto para importação -->
+<input type="file" id="inputImportar" accept=".json" style="display: none;" />
+
+<!-- Notificação Toast -->
+<div id="toast" class="fixed bottom-4 right-4 bg-gray-800 text-white px-6 py-4 rounded-xl shadow-2xl transform translate-x-full transition-transform duration-300 z-50 max-w-sm">
+<div class="flex items-center gap-3">
+<i id="toastIcon" class="fas fa-info-circle text-xl"></i>
+<div>
+<p id="toastTitle" class="font-medium">Notificação</p>
+<p id="toastMessage" class="text-sm text-gray-300 mt-1">Mensagem de notificação</p>
+</div>
+<button onclick="hideToast()" class="ml-4 text-gray-400 hover:text-white">
+<i class="fas fa-times"></i>
+</button>
+</div>
+</div>
+
+<script>
+// Dados e configurações
+let alunos = [];
+let empresas = [];
+let areaFiltroAtual = null;
+let modalFiltroTipo = null;
+// Sistema de cores SEPARADO para alunos e empresas
+const coresAreasAlunos = {};
+const coresAreasEmpresas = {};
+// Paleta de cores para ALUNOS (tons azulados/roxos)
+const coresDisponiveisAlunos = [
+{ bg: 'bg-blue-100', border: 'border-blue-200', text: 'text-blue-700', dark: 'bg-blue-500', light: 'bg-blue-50', gradient: 'from-blue-500 to-blue-600' },
+{ bg: 'bg-indigo-100', border: 'border-indigo-200', text: 'text-indigo-700', dark: 'bg-indigo-500', light: 'bg-indigo-50', gradient: 'from-indigo-500 to-indigo-600' },
+{ bg: 'bg-violet-100', border: 'border-violet-200', text: 'text-violet-700', dark: 'bg-violet-500', light: 'bg-violet-50', gradient: 'from-violet-500 to-violet-600' },
+{ bg: 'bg-purple-100', border: 'border-purple-200', text: 'text-purple-700', dark: 'bg-purple-500', light: 'bg-purple-50', gradient: 'from-purple-500 to-purple-600' },
+{ bg: 'bg-fuchsia-100', border: 'border-fuchsia-200', text: 'text-fuchsia-700', dark: 'bg-fuchsia-500', light: 'bg-fuchsia-50', gradient: 'from-fuchsia-500 to-fuchsia-600' },
+{ bg: 'bg-cyan-100', border: 'border-cyan-200', text: 'text-cyan-700', dark: 'bg-cyan-500', light: 'bg-cyan-50', gradient: 'from-cyan-500 to-cyan-600' },
+{ bg: 'bg-sky-100', border: 'border-sky-200', text: 'text-sky-700', dark: 'bg-sky-500', light: 'bg-sky-50', gradient: 'from-sky-500 to-sky-600' },
+{ bg: 'bg-rose-100', border: 'border-rose-200', text: 'text-rose-700', dark: 'bg-rose-500', light: 'bg-rose-50', gradient: 'from-rose-500 to-rose-600' },
+{ bg: 'bg-pink-100', border: 'border-pink-200', text: 'text-pink-700', dark: 'bg-pink-500', light: 'bg-pink-50', gradient: 'from-pink-500 to-pink-600' },
+{ bg: 'bg-slate-100', border: 'border-slate-200', text: 'text-slate-700', dark: 'bg-slate-500', light: 'bg-slate-50', gradient: 'from-slate-500 to-slate-600' }
+];
+// Paleta de cores para EMPRESAS (tons esverdeados/âmbar)
+const coresDisponiveisEmpresas = [
+{ bg: 'bg-green-100', border: 'border-green-200', text: 'text-green-700', dark: 'bg-green-500', light: 'bg-green-50', gradient: 'from-green-500 to-emerald-600' },
+{ bg: 'bg-emerald-100', border: 'border-emerald-200', text: 'text-emerald-700', dark: 'bg-emerald-500', light: 'bg-emerald-50', gradient: 'from-emerald-500 to-emerald-600' },
+{ bg: 'bg-teal-100', border: 'border-teal-200', text: 'text-teal-700', dark: 'bg-teal-500', light: 'bg-teal-50', gradient: 'from-teal-500 to-teal-600' },
+{ bg: 'bg-amber-100', border: 'border-amber-200', text: 'text-amber-700', dark: 'bg-amber-500', light: 'bg-amber-50', gradient: 'from-amber-500 to-amber-600' },
+{ bg: 'bg-yellow-100', border: 'border-yellow-200', text: 'text-yellow-700', dark: 'bg-yellow-500', light: 'bg-yellow-50', gradient: 'from-yellow-500 to-yellow-600' },
+{ bg: 'bg-lime-100', border: 'border-lime-200', text: 'text-lime-700', dark: 'bg-lime-500', light: 'bg-lime-50', gradient: 'from-lime-500 to-lime-600' },
+{ bg: 'bg-orange-100', border: 'border-orange-200', text: 'text-orange-700', dark: 'bg-orange-500', light: 'bg-orange-50', gradient: 'from-orange-500 to-orange-600' },
+{ bg: 'bg-lime-100', border: 'border-lime-200', text: 'text-lime-700', dark: 'bg-lime-600', light: 'bg-lime-50', gradient: 'from-lime-600 to-green-600' },
+{ bg: 'bg-teal-100', border: 'border-teal-200', text: 'text-teal-700', dark: 'bg-teal-600', light: 'bg-teal-50', gradient: 'from-teal-600 to-cyan-600' },
+{ bg: 'bg-emerald-100', border: 'border-emerald-200', text: 'text-emerald-700', dark: 'bg-emerald-600', light: 'bg-emerald-50', gradient: 'from-emerald-600 to-green-600' }
+];
+// Armazenamento
+const STORAGE_KEYS = {
+ALUNOS: 'estagios_alunos_v3',
+EMPRESAS: 'estagios_empresas_v3',
+AREAS_CORES_ALUNOS: 'estagios_areas_cores_alunos_v3',
+AREAS_CORES_EMPRESAS: 'estagios_areas_cores_empresas_v3'
+};
+
+// Sistema de notificação Toast
+function showToast(title, message, type = 'info') {
+const toast = document.getElementById('toast');
+const icon = document.getElementById('toastIcon');
+const toastTitle = document.getElementById('toastTitle');
+const toastMessage = document.getElementById('toastMessage');
+// Configurar tipo
+const types = {
+success: { icon: 'fa-check-circle', color: 'text-green-400' },
+error: { icon: 'fa-exclamation-circle', color: 'text-red-400' },
+warning: { icon: 'fa-exclamation-triangle', color: 'text-yellow-400' },
+info: { icon: 'fa-info-circle', color: 'text-blue-400' }
+};
+icon.className = `fas ${types[type].icon} ${types[type].color} text-xl`;
+toastTitle.textContent = title;
+toastMessage.textContent = message;
+// Mostrar toast
+toast.classList.remove('translate-x-full');
+setTimeout(hideToast, 5000);
+}
+function hideToast() {
+document.getElementById('toast').classList.add('translate-x-full');
+}
+
+// Funções de armazenamento
+function carregarDados() {
+try {
+const dadosAlunos = localStorage.getItem(STORAGE_KEYS.ALUNOS);
+const dadosEmpresas = localStorage.getItem(STORAGE_KEYS.EMPRESAS);
+const dadosCoresAlunos = localStorage.getItem(STORAGE_KEYS.AREAS_CORES_ALUNOS);
+const dadosCoresEmpresas = localStorage.getItem(STORAGE_KEYS.AREAS_CORES_EMPRESAS);
+if (dadosAlunos) alunos = JSON.parse(dadosAlunos);
+if (dadosEmpresas) empresas = JSON.parse(dadosEmpresas);
+if (dadosCoresAlunos) Object.assign(coresAreasAlunos, JSON.parse(dadosCoresAlunos));
+if (dadosCoresEmpresas) Object.assign(coresAreasEmpresas, JSON.parse(dadosCoresEmpresas));
+showToast('Sistema Carregado', `Dados restaurados com sucesso`, 'success');
+} catch (e) {
+console.error('Erro ao carregar dados:', e);
+alunos = [];
+empresas = [];
+}
+}
+function salvarDados() {
+try {
+localStorage.setItem(STORAGE_KEYS.ALUNOS, JSON.stringify(alunos));
+localStorage.setItem(STORAGE_KEYS.EMPRESAS, JSON.stringify(empresas));
+localStorage.setItem(STORAGE_KEYS.AREAS_CORES_ALUNOS, JSON.stringify(coresAreasAlunos));
+localStorage.setItem(STORAGE_KEYS.AREAS_CORES_EMPRESAS, JSON.stringify(coresAreasEmpresas));
+// Atualizar info de armazenamento
+const used = JSON.stringify(alunos).length + JSON.stringify(empresas).length;
+document.getElementById('storageInfo').textContent =
+`Armazenamento: ${Math.round(used / 1024)}KB`;
+} catch (e) {
+showToast('Erro de Armazenamento', 'Não foi possível salvar os dados', 'error');
+}
+}
+function limparArmazenamento() {
+if (confirm('Tem certeza que deseja limpar TODOS os dados? Esta ação não pode ser desfeita.')) {
+localStorage.clear();
+alunos = [];
+empresas = [];
+Object.keys(coresAreasAlunos).forEach(key => delete coresAreasAlunos[key]);
+Object.keys(coresAreasEmpresas).forEach(key => delete coresAreasEmpresas[key]);
+renderAlunos();
+renderEmpresas();
+atualizarSugestoesAreas();
+atualizarContadores();
+showToast('Dados Limpos', 'Todos os dados foram removidos', 'warning');
+}
+}
+function exportarDados() {
+const dados = {
+alunos,
+empresas,
+coresAreasAlunos,
+coresAreasEmpresas,
+exportadoEm: new Date().toISOString(),
+versao: '3.0'
+};
+const json = JSON.stringify(dados, null, 2);
+const blob = new Blob([json], { type: 'application/json' });
+const url = URL.createObjectURL(blob);
+const a = document.createElement('a');
+a.href = url;
+a.download = `backup-estagios-${new Date().toLocaleDateString('pt-BR').replace(/\//g, '-')}.json`;
+document.body.appendChild(a);
+a.click();
+document.body.removeChild(a);
+URL.revokeObjectURL(url);
+showToast('Exportação Concluída', 'Dados exportados com sucesso', 'success');
+}
+function importarDados(event) {
+const file = event.target.files[0];
+if (!file) return;
+const reader = new FileReader();
+reader.onload = function(e) {
+try {
+const dados = JSON.parse(e.target.result);
+if (!Array.isArray(dados.alunos) || !Array.isArray(dados.empresas)) {
+throw new Error('Formato inválido');
+}
+if (confirm(`Importar ${dados.alunos.length} aluno(s) e ${dados.empresas.length} empresa(s)?`)) {
+alunos = dados.alunos;
+empresas = dados.empresas;
+Object.assign(coresAreasAlunos, dados.coresAreasAlunos || {});
+Object.assign(coresAreasEmpresas, dados.coresAreasEmpresas || {});
+salvarDados();
+renderAlunos();
+renderEmpresas();
+atualizarSugestoesAreas();
+atualizarContadores();
+showToast('Importação Concluída', 'Dados importados com sucesso', 'success');
+}
+} catch (error) {
+showToast('Erro na Importação', 'Arquivo inválido ou corrompido', 'error');
+}
+};
+reader.readAsText(file);
+event.target.value = '';
+}
+
+// Sistema de cores SEPARADO para alunos e empresas
+function obterCorParaArea(area, tipo) {
+if (!area) {
+// Cor padrão baseada no tipo
+return tipo === 'aluno' ? coresDisponiveisAlunos[0] : coresDisponiveisEmpresas[0];
+}
+if (tipo === 'aluno') {
+if (!coresAreasAlunos[area]) {
+let hash = 0;
+for (let i = 0; i < area.length; i++) {
+hash = area.charCodeAt(i) + ((hash << 5) - hash);
+}
+const index = Math.abs(hash) % coresDisponiveisAlunos.length;
+coresAreasAlunos[area] = coresDisponiveisAlunos[index];
+}
+return coresAreasAlunos[area];
+} else {
+if (!coresAreasEmpresas[area]) {
+let hash = 0;
+for (let i = 0; i < area.length; i++) {
+hash = area.charCodeAt(i) + ((hash << 5) - hash);
+}
+const index = Math.abs(hash) % coresDisponiveisEmpresas.length;
+coresAreasEmpresas[area] = coresDisponiveisEmpresas[index];
+}
+return coresAreasEmpresas[area];
+}
+}
+
+// Atualizações de UI
+function atualizarSugestoesAreas() {
+const areasUnicas = [...new Set([
+...alunos.map(a => a.area).filter(Boolean),
+...empresas.map(e => e.area).filter(Boolean)
+])];
+const datalistEmpresa = document.getElementById('areasSugeridas');
+const datalistAluno = document.getElementById('areasSugeridasAluno');
+datalistEmpresa.innerHTML = '';
+datalistAluno.innerHTML = '';
+areasUnicas.forEach(area => {
+const option = document.createElement('option');
+option.value = area;
+datalistEmpresa.appendChild(option.cloneNode(true));
+datalistAluno.appendChild(option);
+});
+}
+
+function atualizarContadores() {
+// Contadores básicos
+document.getElementById('contadorAlunos').textContent = alunos.length;
+document.getElementById('contadorEmpresas').textContent = empresas.length;
+// Contador de alocados
+const totalAlocados = empresas.reduce((acc, emp) => acc + emp.alunos.length, 0);
+document.getElementById('contadorAlocados').textContent = totalAlocados;
+// Estatísticas das vagas
+const vagasTotais = empresas.reduce((acc, emp) => acc + emp.vagas, 0);
+const vagasOcupadas = empresas.reduce((acc, emp) => acc + emp.alunos.length, 0);
+const vagasLivres = vagasTotais - vagasOcupadas;
+const parcialOcupadas = empresas.filter(emp =>
+emp.alunos.length > 0 && emp.alunos.length < emp.vagas
+).length;
+const empresasLotadas = empresas.filter(emp => emp.alunos.length === emp.vagas).length;
+document.getElementById('vagasTotais').textContent = vagasTotais;
+document.getElementById('vagasLivres').textContent = vagasLivres;
+document.getElementById('parcialOcupadas').textContent = parcialOcupadas;
+document.getElementById('empresasLotadas').textContent = empresasLotadas;
+// Atualizar contador de alunos filtrados
+const alunosFiltrados = alunos.filter(a =>
+a.nome.toLowerCase().includes(searchAlunos.value.toLowerCase()) ||
+(a.area && a.area.toLowerCase().includes(searchAlunos.value.toLowerCase()))
+).length;
+document.getElementById('alunosFiltrados').textContent = alunosFiltrados;
+}
+
+// Funções de renderização aprimoradas
+function criarItemAluno(aluno, index) {
+const cor = obterCorParaArea(aluno.area, 'aluno');
+const div = document.createElement('div');
+div.className = `aluno-card bg-white rounded-xl border border-gray-200 p-4 hover-lift cursor-move fade-in`;
+div.setAttribute('draggable', 'true');
+div.dataset.alunoIndex = index;
+// Efeito de drag
+let isDragging = false;
+let dragStartX, dragStartY;
+div.addEventListener('mousedown', (e) => {
+isDragging = false;
+dragStartX = e.clientX;
+dragStartY = e.clientY;
+});
+div.addEventListener('mousemove', (e) => {
+if (!isDragging &&
+(Math.abs(e.clientX - dragStartX) > 5 ||
+Math.abs(e.clientY - dragStartY) > 5)) {
+isDragging = true;
+}
+});
+div.addEventListener('dragstart', (e) => {
+e.dataTransfer.setData('text/plain', index);
+e.dataTransfer.effectAllowed = 'move';
+div.classList.add('opacity-50', 'scale-95');
+// Feedback visual
+document.querySelectorAll('.empresa-card').forEach(card => {
+card.classList.add('ring-2', 'ring-blue-300');
+});
+});
+div.addEventListener('dragend', () => {
+div.classList.remove('opacity-50', 'scale-95');
+document.querySelectorAll('.empresa-card').forEach(card => {
+card.classList.remove('ring-2', 'ring-blue-300', 'ring-green-400');
+});
+});
+div.innerHTML = `
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4 flex-grow min-w-0">
+<div class="relative flex-shrink-0">
+<div class="w-12 h-12 rounded-xl ${cor.dark} flex items-center justify-center shadow-md">
+<span class="text-white font-bold text-lg">${aluno.nome.charAt(0).toUpperCase()}</span>
+</div>
+<div class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-white border-2 border-white flex items-center justify-center">
+<i class="fas fa-user-graduate text-xs ${cor.text}"></i>
+</div>
+</div>
+<div class="flex-grow min-w-0">
+<h4 class="font-semibold text-gray-800 text-truncate" title="${aluno.nome}">${aluno.nome}</h4>
+<div class="flex items-center gap-2 mt-1">
+<div class="flex items-center gap-1">
+<i class="fas fa-briefcase text-xs ${cor.text}"></i>
+<span class="text-xs ${cor.text} font-medium text-truncate">${aluno.area || 'Sem área definida'}</span>
+</div>
+<span class="text-xs text-gray-400 flex-shrink-0">•</span>
+<span class="text-xs text-gray-500 flex-shrink-0">Disponível</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 flex-shrink-0">
+<button class="aluno-editar btn-edit text-blue-400 hover:text-blue-600 p-2 rounded-lg hover:bg-blue-50 transition" title="Editar aluno">
+<i class="fas fa-edit"></i>
+</button>
+<button class="aluno-excluir text-gray-400 hover:text-red-500 p-2 rounded-lg hover:bg-red-50 transition" title="Excluir aluno">
+<i class="fas fa-trash-alt"></i>
+</button>
+</div>
+</div>
+`;
+// Event listeners para os botões
+div.querySelector('.aluno-editar').addEventListener('click', (e) => {
+e.stopPropagation();
+abrirModalEditarAluno(index);
+});
+div.querySelector('.aluno-excluir').addEventListener('click', (e) => {
+e.stopPropagation();
+if (confirm(`Excluir o aluno "${aluno.nome}"?`)) {
+alunos.splice(index, 1);
+salvarDados();
+renderAlunos(searchAlunos.value);
+atualizarContadores();
+showToast('Aluno Removido', `${aluno.nome} foi removido do sistema`, 'warning');
+}
+});
+return div;
+}
+
+function criarCardEmpresa(empresa, index) {
+const cor = obterCorParaArea(empresa.area, 'empresa');
+const vagasDisponiveis = empresa.vagas - empresa.alunos.length;
+const percentualOcupado = empresa.vagas > 0 ? Math.round((empresa.alunos.length / empresa.vagas) * 100) : 0;
+const div = document.createElement('div');
+div.className = `empresa-card bg-white rounded-xl border border-gray-200 p-5 hover-lift fade-in`;
+div.dataset.empresaIndex = index;
+// Determinar status
+let statusClass, statusText, statusIcon;
+if (vagasDisponiveis === 0) {
+statusClass = 'bg-red-100 text-red-700';
+statusText = 'Lotada';
+statusIcon = 'fa-times-circle';
+} else if (vagasDisponiveis === empresa.vagas) {
+statusClass = 'bg-blue-100 text-blue-700';
+statusText = 'Vazia';
+statusIcon = 'fa-door-open';
+} else {
+statusClass = 'bg-amber-100 text-amber-700';
+statusText = 'Parcial';
+statusIcon = 'fa-hourglass-half';
+}
+div.innerHTML = `
+<div class="flex items-start justify-between mb-4">
+<div class="flex items-center gap-4 flex-grow min-w-0">
+<div class="relative flex-shrink-0">
+<div class="w-14 h-14 rounded-xl ${cor.dark} flex items-center justify-center shadow-lg">
+<span class="text-white font-bold text-xl">${empresa.nome.charAt(0).toUpperCase()}</span>
+</div>
+<div class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-white border-2 border-white flex items-center justify-center">
+<i class="fas fa-building text-xs ${cor.text}"></i>
+</div>
+</div>
+<div class="flex-grow min-w-0">
+<h4 class="font-bold text-gray-800 text-truncate" title="${empresa.nome}">${empresa.nome}</h4>
+<div class="flex items-center gap-2 mt-1 flex-wrap">
+<div class="flex items-center gap-1 min-w-0">
+<i class="fas fa-briefcase text-xs ${cor.text} flex-shrink-0"></i>
+<span class="text-xs ${cor.text} font-medium text-truncate max-w-[120px]" title="${empresa.area}">${empresa.area}</span>
+</div>
+<span class="text-xs text-gray-400 flex-shrink-0">•</span>
+<span class="text-xs ${statusClass} px-2 py-0.5 rounded-full flex-shrink-0">
+<i class="fas ${statusIcon} mr-1"></i>${statusText}
+</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 flex-shrink-0">
+<button class="empresa-editar btn-edit text-blue-400 hover:text-blue-600 p-2 rounded-lg hover:bg-blue-50 transition" title="Editar empresa">
+<i class="fas fa-edit"></i>
+</button>
+<button class="empresa-excluir text-red-400 hover:text-red-600 p-2 rounded-lg hover:bg-red-50 transition" title="Excluir empresa">
+<i class="fas fa-trash-alt"></i>
+</button>
+</div>
+</div>
+<!-- Progresso das vagas -->
+<div class="mb-4">
+<div class="flex justify-between items-center mb-2">
+<span class="text-sm font-medium text-gray-700">Vagas ocupadas</span>
+<span class="text-sm font-semibold ${cor.text}">${empresa.alunos.length}/${empresa.vagas}</span>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2.5">
+<div class="progress-bar h-2.5 rounded-full ${percentualOcupado === 100 ? 'bg-red-500' : 'bg-green-500'}"
+style="width: ${percentualOcupado}%"></div>
+</div>
+<div class="text-xs text-gray-500 mt-2 flex justify-between">
+<span>${vagasDisponiveis} vaga(s) disponível(is)</span>
+<span>${percentualOcupado}% ocupado</span>
+</div>
+</div>
+<!-- Alunos alocados -->
+<div>
+<div class="flex items-center justify-between mb-3">
+<h5 class="text-sm font-medium text-gray-700 flex items-center gap-2">
+<i class="fas fa-user-graduate"></i>
+Alunos Alocados
+</h5>
+<span class="text-xs ${cor.light} ${cor.text} px-2 py-1 rounded-full font-medium">
+${empresa.alunos.length} aluno(s)
+</span>
+</div>
+<div class="alunos-container space-y-2 min-h-20">
+${empresa.alunos.length === 0 ? `
+<div class="text-center py-4 border-2 border-dashed ${cor.border} rounded-lg bg-gradient-to-br from-white to-${cor.light.split('-')[1]}-50/30">
+<i class="fas fa-user-plus text-2xl ${cor.text} opacity-40 mb-2"></i>
+<p class="text-sm ${cor.text} opacity-70">Arraste alunos para cá</p>
+<p class="text-xs text-gray-400 mt-1">${vagasDisponiveis} vaga(s) livre(s)</p>
+</div>
+` : empresa.alunos.map((aluno, idx) => {
+const corAluno = obterCorParaArea(aluno.area, 'aluno');
+return `
+<div class="aluno-alocado bg-white border border-gray-100 rounded-lg p-3 flex items-center justify-between" data-aluno-index="${idx}">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-8 h-8 rounded-full ${corAluno.dark} flex items-center justify-center flex-shrink-0">
+<span class="text-white text-xs font-bold">${aluno.nome.charAt(0).toUpperCase()}</span>
+</div>
+<div class="min-w-0">
+<div class="font-medium text-gray-800 text-sm text-truncate" title="${aluno.nome}">${aluno.nome}</div>
+<div class="text-xs text-gray-500 text-truncate" title="${aluno.area || 'Sem área'}">${aluno.area || 'Sem área'}</div>
+</div>
+</div>
+<button class="remover-aluno text-gray-400 hover:text-red-500 p-1 rounded hover:bg-red-50 flex-shrink-0">
+<i class="fas fa-times"></i>
+</button>
+</div>
+`;
+}).join('')}
+</div>
+</div>
+`;
+// Event listeners
+div.querySelector('.empresa-editar').addEventListener('click', (e) => {
+e.stopPropagation();
+abrirModalEditarEmpresa(index);
+});
+div.querySelector('.empresa-excluir').addEventListener('click', (e) => {
+e.stopPropagation();
+if (confirm(`Excluir a empresa "${empresa.nome}" e devolver ${empresa.alunos.length} aluno(s)?`)) {
+empresa.alunos.forEach(aluno => alunos.push(aluno));
+empresas.splice(index, 1);
+salvarDados();
+renderAlunos();
+renderEmpresas();
+atualizarContadores();
+showToast('Empresa Removida', `${empresa.nome} foi removida do sistema`, 'warning');
+}
+});
+// Remover alunos individualmente
+div.querySelectorAll('.remover-aluno').forEach((btn, idx) => {
+btn.addEventListener('click', (e) => {
+e.stopPropagation();
+const aluno = empresa.alunos[idx];
+if (confirm(`Remover ${aluno.nome} da empresa ${empresa.nome}?`)) {
+empresa.alunos.splice(idx, 1);
+alunos.push(aluno);
+salvarDados();
+renderAlunos();
+renderEmpresas();
+atualizarContadores();
+showToast('Aluno Removido', `${aluno.nome} foi devolvido à lista`, 'info');
+}
+});
+});
+// Drag and drop para empresa
+div.addEventListener('dragover', (e) => {
+e.preventDefault();
+if (vagasDisponiveis > 0) {
+div.classList.add('ring-2', 'ring-green-400', 'scale-[1.02]');
+e.dataTransfer.dropEffect = 'move';
+} else {
+div.classList.add('ring-2', 'ring-red-400');
+e.dataTransfer.dropEffect = 'none';
+}
+});
+div.addEventListener('dragleave', () => {
+div.classList.remove('ring-2', 'ring-green-400', 'ring-red-400', 'scale-[1.02]');
+});
+div.addEventListener('drop', (e) => {
+e.preventDefault();
+div.classList.remove('ring-2', 'ring-green-400', 'ring-red-400', 'scale-[1.02]');
+const alunoIndex = e.dataTransfer.getData('text/plain');
+if (alunoIndex === '') return;
+const aluno = alunos[alunoIndex];
+if (!aluno) return;
+if (vagasDisponiveis <= 0) {
+showToast('Vagas Esgotadas', `A empresa ${empresa.nome} está lotada`, 'error');
+return;
+}
+if (aluno.area && empresa.area && aluno.area !== empresa.area) {
+if (!confirm(`⚠️ Áreas diferentes!
+Aluno: ${aluno.area}
+Empresa: ${empresa.area}
+Deseja alocar mesmo assim?`)) {
+return;
+}
+}
+alunos.splice(alunoIndex, 1);
+empresa.alunos.push(aluno);
+salvarDados();
+renderAlunos(searchAlunos.value);
+renderEmpresas(searchEmpresas.value);
+atualizarContadores();
+showToast('Aluno Alocado', `${aluno.nome} foi alocado na ${empresa.nome}`, 'success');
+});
+return div;
+}
+
+function renderAlunos(filter = '') {
+const container = document.getElementById('listaAlunos');
+let alunosFiltrados = alunos.filter(a =>
+a.nome.toLowerCase().includes(filter.toLowerCase()) ||
+(a.area && a.area.toLowerCase().includes(filter.toLowerCase()))
+);
+if (areaFiltroAtual && modalFiltroTipo === 'aluno') {
+alunosFiltrados = alunosFiltrados.filter(a => a.area === areaFiltroAtual);
+}
+if (alunosFiltrados.length === 0) {
+container.innerHTML = `
+<div class="text-center py-12">
+<div class="inline-block p-6 bg-gray-100 rounded-full mb-4">
+<i class="fas fa-search text-3xl text-gray-300"></i>
+</div>
+<h3 class="text-gray-400 font-medium">Nenhum aluno encontrado</h3>
+<p class="text-gray-300 text-sm mt-1">${filter ? 'Tente outra busca' : 'Cadastre o primeiro aluno'}</p>
+</div>
+`;
+} else {
+container.innerHTML = '';
+alunosFiltrados.forEach((aluno, index) => {
+const realIndex = alunos.indexOf(aluno);
+const item = criarItemAluno(aluno, realIndex);
+container.appendChild(item);
+});
+}
+atualizarContadores();
+}
+
+function renderEmpresas(filter = '') {
+const container = document.getElementById('listaEmpresas');
+let empresasFiltradas = empresas.filter(e =>
+e.nome.toLowerCase().includes(filter.toLowerCase()) ||
+e.area.toLowerCase().includes(filter.toLowerCase())
+);
+if (areaFiltroAtual && modalFiltroTipo === 'empresa') {
+empresasFiltradas = empresasFiltradas.filter(e => e.area === areaFiltroAtual);
+}
+if (empresasFiltradas.length === 0) {
+container.innerHTML = `
+<div class="col-span-full text-center py-12">
+<div class="inline-block p-6 bg-gray-100 rounded-full mb-4">
+<i class="fas fa-building text-3xl text-gray-300"></i>
+</div>
+<h3 class="text-gray-400 font-medium">Nenhuma empresa encontrada</h3>
+<p class="text-gray-300 text-sm mt-1">${filter ? 'Tente outra busca' : 'Cadastre a primeira empresa'}</p>
+</div>
+`;
+} else {
+container.innerHTML = '';
+empresasFiltradas.forEach((empresa, index) => {
+const realIndex = empresas.indexOf(empresa);
+const card = criarCardEmpresa(empresa, realIndex);
+container.appendChild(card);
+});
+}
+atualizarContadores();
+}
+
+// Sistema de modais
+function abrirModalEmpresa() {
+document.getElementById('modalOverlay').classList.remove('hidden');
+document.getElementById('modalEmpresa').classList.add('fade-in');
+document.getElementById('nomeEmpresa').focus();
+document.body.style.overflow = 'hidden';
+// Reset para modo novo
+document.getElementById('modalEmpresaTitle').textContent = 'Nova Empresa';
+document.getElementById('modalEmpresaSubtitle').textContent = 'Cadastre uma nova empresa parceira';
+document.getElementById('btnEmpresaSubmitText').textContent = 'Cadastrar Empresa';
+document.getElementById('editEmpresaIndex').value = '-1';
+document.getElementById('formEmpresa').reset();
+}
+
+function fecharModalEmpresa() {
+document.getElementById('modalOverlay').classList.add('hidden');
+document.getElementById('formEmpresa').reset();
+document.getElementById('editEmpresaIndex').value = '-1';
+document.body.style.overflow = '';
+}
+
+function abrirModalAluno() {
+document.getElementById('modalOverlayAluno').classList.remove('hidden');
+document.getElementById('modalAluno').classList.add('fade-in');
+document.getElementById('nomeAluno').focus();
+document.body.style.overflow = 'hidden';
+// Reset para modo novo
+document.getElementById('modalAlunoTitle').textContent = 'Novo Aluno';
+document.getElementById('modalAlunoSubtitle').textContent = 'Cadastre um novo aluno para estágio';
+document.getElementById('btnAlunoSubmitText').textContent = 'Cadastrar Aluno';
+document.getElementById('btnAlunoIcon').className = 'fas fa-user-plus';
+document.getElementById('editAlunoIndex').value = '-1';
+document.getElementById('formAluno').reset();
+}
+
+function fecharModalAluno() {
+document.getElementById('modalOverlayAluno').classList.add('hidden');
+document.getElementById('formAluno').reset();
+document.getElementById('editAlunoIndex').value = '-1';
+document.body.style.overflow = '';
+}
+
+// Funções de edição
+function abrirModalEditarAluno(index) {
+const aluno = alunos[index];
+if (!aluno) return;
+
+document.getElementById('modalOverlayAluno').classList.remove('hidden');
+document.getElementById('modalAluno').classList.add('fade-in');
+document.body.style.overflow = 'hidden';
+
+// Configurar modo edição
+document.getElementById('modalAlunoTitle').textContent = 'Editar Aluno';
+document.getElementById('modalAlunoSubtitle').textContent = 'Atualize os dados do aluno';
+document.getElementById('btnAlunoSubmitText').textContent = 'Salvar Alterações';
+document.getElementById('btnAlunoIcon').className = 'fas fa-save';
+document.getElementById('editAlunoIndex').value = index;
+
+// Preencher campos
+document.getElementById('nomeAluno').value = aluno.nome;
+document.getElementById('areaAluno').value = aluno.area || '';
+}
+
+function abrirModalEditarEmpresa(index) {
+const empresa = empresas[index];
+if (!empresa) return;
+
+document.getElementById('modalOverlay').classList.remove('hidden');
+document.getElementById('modalEmpresa').classList.add('fade-in');
+document.body.style.overflow = 'hidden';
+
+// Configurar modo edição
+document.getElementById('modalEmpresaTitle').textContent = 'Editar Empresa';
+document.getElementById('modalEmpresaSubtitle').textContent = 'Atualize os dados da empresa';
+document.getElementById('btnEmpresaSubmitText').textContent = 'Salvar Alterações';
+document.getElementById('editEmpresaIndex').value = index;
+
+// Preencher campos
+document.getElementById('nomeEmpresa').value = empresa.nome;
+document.getElementById('vagasEmpresa').value = empresa.vagas;
+document.getElementById('areaEmpresa').value = empresa.area;
+}
+
+// Validações
+function validarEmpresa() {
+const nome = document.getElementById('nomeEmpresa').value.trim();
+const vagas = parseInt(document.getElementById('vagasEmpresa').value);
+const area = document.getElementById('areaEmpresa').value.trim();
+if (!nome) {
+showToast('Campo Obrigatório', 'O nome da empresa é obrigatório', 'error');
+return false;
+}
+if (!vagas || vagas < 1 || vagas > 20) {
+showToast('Vagas Inválidas', 'Digite um número de vagas entre 1 e 20', 'error');
+return false;
+}
+if (!area) {
+showToast('Campo Obrigatório', 'A área de atuação é obrigatória', 'error');
+return false;
+}
+return true;
+}
+
+function validarAluno() {
+const nome = document.getElementById('nomeAluno').value.trim();
+if (!nome) {
+showToast('Campo Obrigatório', 'O nome do aluno é obrigatório', 'error');
+return false;
+}
+return true;
+}
+
+// Inicialização
+let searchAlunos, searchEmpresas;
+
+document.addEventListener('DOMContentLoaded', () => {
+// Carregar dados
+carregarDados();
+
+// Elementos DOM
+searchAlunos = document.getElementById('searchAlunos');
+searchEmpresas = document.getElementById('searchEmpresas');
+const btnOpenModalEmpresa = document.getElementById('btnOpenModalEmpresa');
+const btnOpenModalAluno = document.getElementById('btnOpenModalAluno');
+const btnCancelarEmpresa = document.getElementById('btnCancelarEmpresa');
+const btnCancelarAluno = document.getElementById('btnCancelarAluno');
+const btnCloseModalEmpresa = document.getElementById('btnCloseModalEmpresa');
+const btnCloseModalAluno = document.getElementById('btnCloseModalAluno');
+const formEmpresa = document.getElementById('formEmpresa');
+const formAluno = document.getElementById('formAluno');
+const btnExportar = document.getElementById('btnExportar');
+const btnImportar = document.getElementById('btnImportar');
+const btnLimparDados = document.getElementById('btnLimparDados');
+const inputImportar = document.getElementById('inputImportar');
+const btnAddAlunoEmpty = document.getElementById('btnAddAlunoEmpty');
+const btnAddEmpresaEmpty = document.getElementById('btnAddEmpresaEmpty');
+const btnFiltrarAreaEmpresa = document.getElementById('btnFiltrarAreaEmpresa');
+
+// Event Listeners
+btnOpenModalEmpresa.addEventListener('click', abrirModalEmpresa);
+btnOpenModalAluno.addEventListener('click', abrirModalAluno);
+btnAddAlunoEmpty?.addEventListener('click', abrirModalAluno);
+btnAddEmpresaEmpty?.addEventListener('click', abrirModalEmpresa);
+btnCancelarEmpresa.addEventListener('click', fecharModalEmpresa);
+btnCancelarAluno.addEventListener('click', fecharModalAluno);
+btnCloseModalEmpresa.addEventListener('click', fecharModalEmpresa);
+btnCloseModalAluno.addEventListener('click', fecharModalAluno);
+btnExportar.addEventListener('click', exportarDados);
+btnImportar.addEventListener('click', () => inputImportar.click());
+btnLimparDados.addEventListener('click', limparArmazenamento);
+inputImportar.addEventListener('change', importarDados);
+
+// Fechar modais com ESC
+document.addEventListener('keydown', (e) => {
+if (e.key === 'Escape') {
+fecharModalEmpresa();
+fecharModalAluno();
+}
+});
+
+// Fechar modais clicando fora
+document.getElementById('modalOverlay')?.addEventListener('click', (e) => {
+if (e.target === document.getElementById('modalOverlay')) {
+fecharModalEmpresa();
+}
+});
+document.getElementById('modalOverlayAluno')?.addEventListener('click', (e) => {
+if (e.target === document.getElementById('modalOverlayAluno')) {
+fecharModalAluno();
+}
+});
+
+// Formulários
+formEmpresa.addEventListener('submit', (e) => {
+e.preventDefault();
+if (!validarEmpresa()) return;
+
+const editIndex = parseInt(document.getElementById('editEmpresaIndex').value);
+const nome = document.getElementById('nomeEmpresa').value.trim();
+const vagas = parseInt(document.getElementById('vagasEmpresa').value);
+const area = document.getElementById('areaEmpresa').value.trim();
+
+if (editIndex >= 0 && editIndex < empresas.length) {
+// Modo edição
+const empresaAntiga = empresas[editIndex];
+// Se reduzir vagas e houver alunos alocados, avisar
+if (vagas < empresaAntiga.alunos.length) {
+if (!confirm(`Atenção: Reduzir vagas para ${vagas} enquanto há ${empresaAntiga.alunos.length} aluno(s) alocado(s) pode causar inconsistências. Deseja continuar?`)) {
+return;
+}
+}
+empresas[editIndex] = { ...empresaAntiga, nome, vagas, area };
+salvarDados();
+renderEmpresas();
+atualizarSugestoesAreas();
+fecharModalEmpresa();
+showToast('Empresa Atualizada', `${nome} foi atualizada com sucesso`, 'success');
+} else {
+// Modo novo
+empresas.push({ nome, vagas, area, alunos: [] });
+salvarDados();
+renderEmpresas();
+atualizarSugestoesAreas();
+fecharModalEmpresa();
+showToast('Empresa Cadastrada', `${nome} foi adicionada ao sistema`, 'success');
+}
+});
+
+formAluno.addEventListener('submit', (e) => {
+e.preventDefault();
+if (!validarAluno()) return;
+
+const editIndex = parseInt(document.getElementById('editAlunoIndex').value);
+const nome = document.getElementById('nomeAluno').value.trim();
+const area = document.getElementById('areaAluno').value.trim();
+
+if (editIndex >= 0 && editIndex < alunos.length) {
+// Modo edição
+const alunoAntigo = alunos[editIndex];
+alunos[editIndex] = { ...alunoAntigo, nome, area };
+salvarDados();
+renderAlunos();
+atualizarSugestoesAreas();
+fecharModalAluno();
+showToast('Aluno Atualizado', `${nome} foi atualizado com sucesso`, 'success');
+} else {
+// Modo novo
+alunos.push({ nome, area });
+salvarDados();
+renderAlunos();
+atualizarSugestoesAreas();
+fecharModalAluno();
+showToast('Aluno Cadastrado', `${nome} foi adicionado ao sistema`, 'success');
+}
+});
+
+// Buscas
+searchAlunos.addEventListener('input', () => {
+renderAlunos(searchAlunos.value);
+});
+searchEmpresas.addEventListener('input', () => {
+renderEmpresas(searchEmpresas.value);
+});
+
+// Filtros
+btnFiltrarAreaEmpresa?.addEventListener('click', () => {
+areaFiltroAtual = areaFiltroAtual ? null : 'empresa';
+modalFiltroTipo = 'empresa';
+renderEmpresas(searchEmpresas.value);
+});
+
+// Renderização inicial
+renderAlunos();
+renderEmpresas();
+atualizarSugestoesAreas();
+atualizarContadores();
+
+// Mostrar mensagem de boas-vindas
+setTimeout(() => {
+if (alunos.length === 0 && empresas.length === 0) {
+showToast('Bem-vindo!', 'Comece cadastrando alunos e empresas', 'info');
+}
+}, 1000);
+});
+</script>
+</body>
+</html>
+
